@@ -47,6 +47,6 @@ resource "aws_docdb_cluster_instance" "cluster_instances" {
   count              = var.docdb_instance_count
   identifier         = "${var.env}-${var.component}-${count.index}"
   cluster_identifier = aws_docdb_cluster.docdb.id
-  instance_class     = var.instance_class
+  instance_class     = var.docdb_instance_class
 }
 
