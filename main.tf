@@ -40,5 +40,13 @@ resource "aws_docdb_cluster" "docdb" {
   db_subnet_group_name = aws_docdb_subnet_group.main.name
   engine               = "docdb"
   engine_version       = "4.0.0"
+  kms_key_id           = var.kms_key_id
+}
+
+resource "aws_docdb_cluster_instance" "cluster_instances" {
+  count              = var.docdb_instance_count
+  identifier         = "${var.env}-${var.component}-${count.index}"
+  cluster_identifier = aws_docdb_cluster.docdb.id
+  instance_class     = var.instance_class
 }
 
