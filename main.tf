@@ -41,6 +41,7 @@ resource "aws_docdb_cluster" "main" {
   engine               = "docdb"
   engine_version       = "4.0.0"
   kms_key_id           = var.kms_key_id
+  storage_encrypted    = true
 }
 
 resource "aws_docdb_cluster_instance" "main" {
