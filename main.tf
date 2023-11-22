@@ -33,15 +33,16 @@ resource "aws_docdb_subnet_group" "main" {
 }
 
 resource "aws_docdb_cluster" "main" {
-  cluster_identifier   = "${var.env}-${var.component}-cluster"
-  master_username      = data.aws_ssm_parameter.master_username.value
-  master_password      = data.aws_ssm_parameter.master_password.value
-  skip_final_snapshot  = true
-  db_subnet_group_name = aws_docdb_subnet_group.main.name
-  engine               = "docdb"
-  engine_version       = "4.0.0"
-  kms_key_id           = var.kms_key_id
-  storage_encrypted    = true
+  cluster_identifier     = "${var.env}-${var.component}-cluster"
+  master_username        = data.aws_ssm_parameter.master_username.value
+  master_password        = data.aws_ssm_parameter.master_password.value
+  skip_final_snapshot    = true
+  db_subnet_group_name   = aws_docdb_subnet_group.main.name
+  engine                 = "docdb"
+  engine_version         = "4.0.0"
+  kms_key_id             = var.kms_key_id
+  storage_encrypted      = true
+  vpc_security_group_ids = [aws_security_group.main.id]
 }
 
 resource "aws_docdb_cluster_instance" "main" {
